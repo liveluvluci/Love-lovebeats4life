@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070b18"><link rel="manifest" href="./manifest.webmanifest">
+<title>liveluvbeats — v0.1</title>
+<style>
+:root{--bg:#070b18;--panel:#0d1427;--panel2:#111b33;--line:#263453;--text:#edf4ff;--muted:#7f91b2;--accent:#20e0ff;--accent2:#a855f7;--green:#20e08a}
+*{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 75% 0%,#1b1640 0,#070b18 42%);color:var(--text);font:14px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+button,input{font:inherit} button{color:inherit;border:0}
+.app{max-width:1500px;margin:auto;min-height:100vh;display:grid;grid-template-columns:190px 1fr}
+.sidebar{border-right:1px solid var(--line);background:rgba(5,9,20,.82);padding:18px 12px;display:flex;flex-direction:column;gap:18px}
+.logo{font-size:23px;font-weight:900;letter-spacing:-1.2px}.logo span{color:var(--accent)}
+.tag{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:2px}
+.nav button{display:block;width:100%;text-align:left;background:transparent;padding:11px 12px;border-radius:9px;color:#b9c6dd;cursor:pointer}.nav button:hover,.nav .active{background:#17213b;color:#fff}.samples{margin-top:auto;border-top:1px solid var(--line);padding-top:14px}.samples div{padding:7px 2px;color:var(--muted);font-size:12px}
+.main{min-width:0}.top{height:66px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:10px 16px;background:rgba(7,11,24,.78);position:sticky;top:0;z-index:3}.project{font-weight:700;margin-right:auto}.pill{background:#111b33;border:1px solid var(--line);padding:8px 10px;border-radius:8px;color:#b8c7df}.transport button{background:#17233e;border:1px solid #304164;border-radius:8px;padding:8px 12px;cursor:pointer}.transport .play{background:var(--green);color:#03130d;border-color:transparent;font-weight:800}.bpm{width:74px;background:#0b1224;border:1px solid var(--line);color:#fff;border-radius:7px;padding:8px}.content{padding:14px;display:grid;gap:14px}.panel{background:linear-gradient(180deg,rgba(17,27,51,.9),rgba(9,15,30,.9));border:1px solid var(--line);border-radius:11px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.18)}.panel h3{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:#9db0d0;margin:0;padding:12px;border-bottom:1px solid var(--line)}
+.arrangement{overflow:auto}.timeline{min-width:850px;padding:10px 12px}.markers{display:grid;grid-template-columns:repeat(16,1fr);gap:2px;color:#6e80a2;font-size:9px;margin-left:105px}.track{display:grid;grid-template-columns:105px 1fr;min-height:42px;align-items:center}.trackname{padding:8px;color:#b9c6dd;font-size:12px}.cells{display:grid;grid-template-columns:repeat(16,1fr);gap:2px}.block{height:27px;border-radius:4px;background:#17233e;border:1px solid #26395d}.block.on{background:linear-gradient(90deg,#6d35f5,#19cfe7);border-color:#8d75ff;box-shadow:0 0 12px rgba(50,170,255,.2)}
+.lower{display:grid;grid-template-columns:1.05fr 1.25fr .9fr;gap:14px}.seq{padding:12px;overflow:auto}.row{display:grid;grid-template-columns:70px repeat(16,minmax(20px,1fr));gap:4px;align-items:center;margin-bottom:7px;min-width:500px}.rowname{color:#b8c6df;font-size:11px}.step{aspect-ratio:1;background:#17233e;border:1px solid #2b3b5d;border-radius:4px;cursor:pointer}.step.on{background:#20d9f2;border-color:#86f5ff;box-shadow:0 0 9px rgba(32,224,255,.28)}.step.playing{outline:2px solid #fff;outline-offset:1px}.controls{display:flex;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line)}.controls button{background:#17233e;border:1px solid #304164;border-radius:7px;padding:7px 10px;cursor:pointer}.piano{height:255px;padding:12px;overflow:auto}.piano-grid{height:100%;min-width:600px;display:grid;grid-template-columns:38px 1fr;position:relative}.keys{display:flex;flex-direction:column}.key{flex:1;border:1px solid #283651;background:#f2f5fa;color:#111;font-size:8px;display:flex;align-items:center;padding-left:4px}.key.black{background:#1a2231;color:#fff}.notes{position:relative;background:repeating-linear-gradient(to right,transparent 0,transparent calc(6.25% - 1px),#20304d calc(6.25% - 1px),#20304d 6.25%),repeating-linear-gradient(to bottom,#17233e 0,#17233e calc(12.5% - 1px),#26385a calc(12.5% - 1px),#26385a 12.5%)}.note{position:absolute;background:#21d9c4;border:1px solid #8bfff4;border-radius:3px;height:10%;box-shadow:0 0 10px rgba(33,217,196,.2)}.synth{padding:12px;display:grid;gap:10px}.knobrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.knob{background:#0b1224;border:1px solid var(--line);border-radius:8px;padding:10px}.knob label{display:block;color:var(--muted);font-size:10px;margin-bottom:8px}.knob input{width:100%}.status{color:#7184a7;font-size:11px;padding:0 12px 12px}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#121e36;border:1px solid #304164;padding:10px 14px;border-radius:8px;display:none}
+@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{display:none}.lower{grid-template-columns:1fr}.top{padding-left:10px;padding-right:10px}.project{font-size:13px}.content{padding:9px}.panel h3{padding:10px}.arrangement{min-height:300px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div><div class="logo">liveluv<span>beats</span></div><div class="tag">EDM studio • v0.1</div></div>
+  <div class="nav">
+    <button class="active">⌂ Studio</button><button>▣ Browser</button><button>♫ Instruments</button><button>◫ Effects</button><button>≋ Mixer</button>
+  </div>
+  <div class="samples"><div class="tag">Sounds</div><div>Kick 01</div><div>Snare 01</div><div>Clap 01</div><div>Hat 01</div><div>Neon Bass</div><div>Future Lead</div></div>
+</aside>
+<main class="main">
+<header class="top">
+  <div class="project">Neon Dreams</div>
+  <div class="pill">4/4</div><input id="bpm" class="bpm" type="number" min="60" max="220" value="128" aria-label="BPM">
+  <div class="transport"><button id="stop">■</button> <button id="play" class="play">▶ Play</button></div>
+  <button id="save" class="pill">Save</button>
+</header>
+<section class="content">
+  <div class="panel arrangement"><h3>Playlist / Arrangement</h3><div class="timeline" id="timeline"></div></div>
+  <div class="lower">
+    <div class="panel"><h3>EDM Step Sequencer</h3><div class="controls"><button id="clear">Clear</button><button id="demo">Demo Pattern</button></div><div class="seq" id="seq"></div><div class="status">Tap steps to program a beat. Play uses your browser's Web Audio engine.</div></div>
+    <div class="panel"><h3>Piano Roll</h3><div class="piano"><div class="piano-grid"><div class="keys" id="keys"></div><div class="notes" id="notes"></div></div></div></div>
+    <div class="panel"><h3>Neon Synth</h3><div class="synth"><div class="pill">Preset: Future Lead</div><div class="knobrow"><div class="knob"><label>Cutoff</label><input type="range" id="cutoff" min="200" max="6000" value="2200"></div><div class="knob"><label>Resonance</label><input type="range" id="res" min="0" max="20" value="5"></div><div class="knob"><label>Release</label><input type="range" id="release" min="0.05" max="1" step=".01" value=".25"></div></div><button id="preview" class="play">Preview Lead</button></div></div>
+  </div>
+</section>
+</main>
+</div>
+<div id="toast" class="toast"></div>
+<script>
+const rows=["Kick","Snare","Clap","Hat","Perc","Bass","Lead"];
+const patterns={Kick:[0,4,8,12],Snare:[4,12],Clap:[4,12],Hat:[2,6,10,14],Perc:[3,7,11,15],Bass:[0,3,6,8,10,14],Lead:[0,4,8,12]};
+let state=Object.fromEntries(rows.map(r=>[r,Array(16).fill(false)]));
+let timer=null, step=0, audio=null;
+
+function toast(t){const e=document.getElementById("toast");e.textContent=t;e.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display="none",1600)}
+function renderSeq(){
+ const el=document.getElementById("seq");el.innerHTML="";
+ rows.forEach(r=>{const row=document.createElement("div");row.className="row";const n=document.createElement("div");n.className="rowname";n.textContent=r;row.appendChild(n);
+ for(let i=0;i<16;i++){const b=document.createElement("button");b.className="step"+(state[r][i]?" on":"");b.dataset.r=r;b.dataset.i=i;b.onclick=()=>{state[r][i]=!state[r][i];b.classList.toggle("on")};row.appendChild(b)}el.appendChild(row)})
+}
+function renderTimeline(){const t=document.getElementById("timeline");t.innerHTML='<div class="markers">'+Array.from({length:16},(_,i)=>`<span>${i+1}</span>`).join("")+'</div>';
+ rows.forEach((r,j)=>{const tr=document.createElement("div");tr.className="track";tr.innerHTML=`<div class="trackname">${r}</div><div class="cells">${Array.from({length:16},(_,i)=>`<div class="block ${state[r][i]?"on":""}"></div>`).join("")}</div>`;t.appendChild(tr)})}
+function renderPiano(){const keys=document.getElementById("keys"), notes=document.getElementById("notes");keys.innerHTML="";notes.innerHTML="";
+ const names=["C5","B4","A#4","A4","G#4","G4","F#4","F4"];names.forEach((n,i)=>{const k=document.createElement("div");k.className="key"+(n.includes("#")?" black":"");k.textContent=n;keys.appendChild(k)});
+ [ ["C5",8,16],["E4",28,12],["G4",42,14],["B4",58,12],["C5",72,18] ].forEach(([n,x,w],i)=>{const q=document.createElement("div");q.className="note";q.style.left=x+"%";q.style.width=w+"%";q.style.top=(i*12+4)+"%";notes.appendChild(q)})}
+function demo(){state=Object.fromEntries(rows.map(r=>[r,Array(16).fill(false)]));Object.entries(patterns).forEach(([r,arr])=>arr.forEach(i=>state[r][i]=true));renderSeq();renderTimeline();toast("EDM demo pattern loaded")}
+function clearAll(){state=Object.fromEntries(rows.map(r=>[r,Array(16).fill(false)]));renderSeq();renderTimeline()}
+function audioCtx(){if(!audio)audio=new (window.AudioContext||window.webkitAudioContext)();if(audio.state==="suspended")audio.resume();return audio}
+function kick(t){const c=audioCtx(),o=c.createOscillator(),g=c.createGain();o.type="sine";o.frequency.setValueAtTime(140,t);o.frequency.exponentialRampToValueAtTime(48,t+.12);g.gain.setValueAtTime(.8,t);g.gain.exponentialRampToValueAtTime(.001,t+.22);o.connect(g).connect(c.destination);o.start(t);o.stop(t+.23)}
+function noise(t,d=.12,v=.22){const c=audioCtx(),b=c.createBuffer(1,c.sampleRate*d,c.sampleRate),a=b.getChannelData(0);for(let i=0;i<a.length;i++)a[i]=Math.random()*2-1;const s=c.createBufferSource(),g=c.createGain(),f=c.createBiquadFilter();f.type="highpass";f.frequency.value=1200;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d);s.buffer=b;s.connect(f).connect(g).connect(c.destination);s.start(t)}
+function synthNote(t,f,d=.18,v=.16){const c=audioCtx(),o=c.createOscillator(),g=c.createGain(),filt=c.createBiquadFilter();o.type="sawtooth";o.frequency.value=f;filt.type="lowpass";filt.frequency.value=+document.getElementById("cutoff").value;filt.Q.value=+document.getElementById("res").value;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(filt).connect(g).connect(c.destination);o.start(t);o.stop(t+d+.02)}
+function tick(){const c=audioCtx(),t=c.currentTime;const bpm=+document.getElementById("bpm").value;const dur=60/bpm/4;
+ if(state.Kick[step])kick(t); if(state.Snare[step])noise(t,.16,.28); if(state.Clap[step])noise(t,.09,.14); if(state.Hat[step])noise(t,.045,.09); if(state.Perc[step])noise(t,.07,.08);
+ if(state.Bass[step])synthNote(t,[55,55,65.4,73.4][step%4],.18,.12); if(state.Lead[step])synthNote(t,[220,277,330,440][step%4],.22,.08);
+ document.querySelectorAll(".step.playing").forEach(e=>e.classList.remove("playing"));document.querySelectorAll(`.step[data-i="${step}"]`).forEach(e=>e.classList.add("playing"));
+ step=(step+1)%16;timer=setTimeout(tick,dur*1000)}
+function play(){if(timer)return;step=0;tick();document.getElementById("play").textContent="❚❚ Playing"}
+function stop(){clearTimeout(timer);timer=null;document.querySelectorAll(".step.playing").forEach(e=>e.classList.remove("playing"));document.getElementById("play").textContent="▶ Play"}
+document.getElementById("play").onclick=()=>timer?stop():play();document.getElementById("stop").onclick=stop;document.getElementById("demo").onclick=demo;document.getElementById("clear").onclick=clearAll;
+document.getElementById("preview").onclick=()=>{for(let i=0;i<4;i++)setTimeout(()=>synthNote(audioCtx().currentTime,[261.63,329.63,392,523.25][i],.35,.12),i*220)};
+document.getElementById("save").onclick=()=>{localStorage.setItem("liveluvbeats-project",JSON.stringify({state,bpm:document.getElementById("bpm").value}));toast("Project saved on this device")};
+document.getElementById("bpm").onchange=()=>toast("BPM set to "+document.getElementById("bpm").value);
+renderSeq();renderTimeline();renderPiano();
+if(localStorage.getItem("liveluvbeats-project")){try{const p=JSON.parse(localStorage.getItem("liveluvbeats-project"));state=p.state;document.getElementById("bpm").value=p.bpm;renderSeq();renderTimeline()}catch(e){}}
+</script>
+<script>if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js"));</script></body>
+</html>
